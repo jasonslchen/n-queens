@@ -88,6 +88,17 @@
       //count the number of 1s in the array
       //if the count is greater than 1, then there is conflict
       //if the count is less than or equal to 1, then there is no conflict
+      // let row = this.get(rowIndex);
+      // let counter = 0;
+      // for (let i =  0; i < row.length; i++) {
+      //   if (row[i] === 1) {
+      //     counter++;
+      //   }
+      // }
+      // if (counter > 1) {
+      //   return true;
+      // }
+      // return false;
       return rowIndex.filter(element=>element===1).length<=1? false:true;
     },
 
@@ -174,8 +185,8 @@
         var counter = 0;
         var row = 0;
         var col = majorDiagonalColumnIndexAtFirstRow
-        for(var i= col; i<col + arr.length; i++){
-          if(arr[row][i] === 1){
+        for(var i= col; i<arr.length; i++){
+          if(row<arr.length && arr[row][i] === 1){
             counter++;
           }
           row++
