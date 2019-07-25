@@ -88,18 +88,19 @@
       //count the number of 1s in the array
       //if the count is greater than 1, then there is conflict
       //if the count is less than or equal to 1, then there is no conflict
-      // let row = this.get(rowIndex);
-      // let counter = 0;
-      // for (let i =  0; i < row.length; i++) {
-      //   if (row[i] === 1) {
-      //     counter++;
-      //   }
-      // }
-      // if (counter > 1) {
-      //   return true;
-      // }
-      // return false;
-      return rowIndex.filter(element=>element===1).length<=1? false:true;
+      let row = this.get(rowIndex);
+      let counter = 0;
+      for (let i =  0; i < row.length; i++) {
+        if (row[i] === 1) {
+          counter++;
+        }
+      }
+      if (counter > 1) {
+        return true;
+      }
+      return false;
+
+      // return rowIndex.filter(element=>element===1).length<=1? false:true;
     },
 
     // test if any rows on this board contain conflicts
@@ -111,13 +112,10 @@
       //else return false
       let rowArr = this.rows();
       for (let i = 0; i < rowArr.length; i++) {
-        if(this.hasRowConflictAt(rowArr[i])) {
+        if(this.hasRowConflictAt(i)) {
           return true;
         }
       }
-
-
-
       return false; // fixme
       //
     },
@@ -150,7 +148,6 @@
       return counter > 1 ? true : false;
 
     },
-
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
       // return false; // fixme
