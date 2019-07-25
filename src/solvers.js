@@ -36,7 +36,15 @@ window.findNRooksSolution = function(n) {
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
   //retuns a count of the total number of solutions to the n-rooks problem
+  //implement tree structure
+  //each child value will have to be an array of tuple toggled pieces for that instance or some child structure
+    //that way when we instanciate the board and toggle the pieces itll be eaiser than having the value be a new board
+    //
+
+
   var solutionCount = undefined; //fixme
+
+
 
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
@@ -53,16 +61,35 @@ window.findNQueensSolution = function(n) {
   //check queen soln number is equal to n, if not run recursion again
   //if queen soln number = n, somehow push out answer and return the answer
   //implementation?!?!??!
-  var board = new Board({n:n})
-  for (var r=0; r<n; r++){
-    for (var c=0; c<n; c++){
-      board.togglePiece(r,c);
-      if(board.hasAnyQueensConflicts()){
+
+  var solutions =[];
+  for (var i=0; i<n; i++){
+    var board = new Board({n:n})
+    var counter = 0;
+    let start = true;
+    for (var r=0; r<n; r++){
+      for (var c=0; c<n; c++){
+        if(r === 0 && start) {
+          c = i;
+          start = false;
+        }
         board.togglePiece(r,c);
+        counter++
+        if(board.hasAnyQueensConflicts()){
+          board.togglePiece(r,c);
+          counter--
+        }
       }
     }
+    if(counter === n){
+      solutions.push(board.rows());
+    }
+
+    // if (n === 6) {
+    //   debugger;
+    // }
   }
-  var solution = board.rows(); //fixme
+  var solution = solutions[0] || solutions; //fixme
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
   return solution;
 };
