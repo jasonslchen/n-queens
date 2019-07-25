@@ -49,6 +49,10 @@ window.findNQueensSolution = function(n) {
   //create an n*n board where the initial values are all zeros
   //populate the board using togglePiece to add 1s
   //only add one at (row,col) position if doing so does not create a conflict on the resulting board
+  //for helper recursion put for loops in recursion
+  //check queen soln number is equal to n, if not run recursion again
+  //if queen soln number = n, somehow push out answer and return the answer
+  //implementation?!?!??!
   var board = new Board({n:n})
   for (var r=0; r<n; r++){
     for (var c=0; c<n; c++){
@@ -58,7 +62,6 @@ window.findNQueensSolution = function(n) {
       }
     }
   }
-
   var solution = board.rows(); //fixme
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
   return solution;
