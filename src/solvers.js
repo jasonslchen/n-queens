@@ -40,9 +40,33 @@ window.countNRooksSolutions = function(n) {
   //each child value will have to be an array of tuple toggled pieces for that instance or some child structure
     //that way when we instanciate the board and toggle the pieces itll be eaiser than having the value be a new board
     //
+  let board = new Board({n:n});
+
+  //start at row 0;
+  //start at column = 0, check if possible
+    //run recursion on next row
+  //when row = n and there is a possible solution solution count = 1;
+  var solutionCount = 0; //fixme
+  let rooksRecursion = function(row) {
+    if(row === n && !board.hasAnyRooksConflicts()) {
+      solutionCount++;
+    }
+    if(!!board.get(row)) {
+      for (let j = 0; j < n; j++) {
+        board.togglePiece(row, j);
+       if(!board.hasAnyRooksConflicts()) {
+         rooksRecursion(row + 1);
+       }
+        board.togglePiece(row, j);
+
+      }
+    }
+  }
 
 
-  var solutionCount = undefined; //fixme
+  rooksRecursion(0);
+
+
 
 
 
@@ -98,7 +122,27 @@ window.findNQueensSolution = function(n) {
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
   //returns a count of the total number of solutions to the n-queens problem
-  var solutionCount = undefined; //fixme
+
+  let board = new Board({n:n});
+  var solutionCount = 0; //fixme
+
+  let queensRecursion = function(row) {
+    if(row === n && !board.hasAnyQueensConflicts()) {
+      solutionCount++;
+    }
+    if(!!board.get(row)) {
+      for (let j = 0; j < n; j++) {
+        board.togglePiece(row, j);
+       if(!board.hasAnyQueensConflicts()) {
+         queensRecursion(row + 1);
+       }
+        board.togglePiece(row, j);
+
+      }
+    }
+  }
+
+  queensRecursion(0);
 
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
