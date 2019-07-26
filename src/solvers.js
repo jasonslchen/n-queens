@@ -54,7 +54,7 @@ window.countNRooksSolutions = function(n) {
     if(!!board.get(row)) {
       for (let j = 0; j < n; j++) {
         board.togglePiece(row, j);
-       if(!board.hasAnyRooksConflicts()) {
+       if(!board.hasColConflictAt(j)) {
          rooksRecursion(row + 1);
        }
         board.togglePiece(row, j);
@@ -85,37 +85,32 @@ window.findNQueensSolution = function(n) {
   //check queen soln number is equal to n, if not run recursion again
   //if queen soln number = n, somehow push out answer and return the answer
   //implementation?!?!??!
+  // let solutions = [];
 
-  var solutions =[];
-  for (var i=0; i<n; i++){
-    var board = new Board({n:n})
-    var counter = 0;
-    let start = true;
-    for (var r=0; r<n; r++){
-      for (var c=0; c<n; c++){
-        if(r === 0 && start) {
-          c = i;
-          start = false;
-        }
-        board.togglePiece(r,c);
-        counter++
-        if(board.hasAnyQueensConflicts()){
-          board.togglePiece(r,c);
-          counter--
-        }
-      }
-    }
-    if(counter === n){
-      solutions.push(board.rows());
-    }
+  // let board = new Board({n:n});
+  // var solutionCount = 0; //fixme
 
-    // if (n === 6) {
-    //   debugger;
-    // }
-  }
-  var solution = solutions[0] || solutions; //fixme
-  console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
-  return solution;
+  // let queensRecursion = function(row) {
+  //   if(row === n && !board.hasAnyQueensConflicts()) {
+  //     solutions.push(board.rows());
+  //   }
+  //   if(!!board.get(row)) {
+  //     for (let j = 0; j < n; j++) {
+  //       board.togglePiece(row, j);
+  //      if(!board.hasAnyQueensConflicts()) {
+  //        queensRecursion(row + 1);
+  //      }
+  //       board.togglePiece(row, j);
+
+  //     }
+  //   }
+  // }
+
+  // queensRecursion(0);
+
+  // var solution = solutions[0] || solutions; //fixme
+  // console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
+  // return solution;
 };
 
 
