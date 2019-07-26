@@ -85,32 +85,38 @@ window.findNQueensSolution = function(n) {
   //check queen soln number is equal to n, if not run recursion again
   //if queen soln number = n, somehow push out answer and return the answer
   //implementation?!?!??!
-  // let solutions = [];
+  var solution;//fixme
 
-  // let board = new Board({n:n});
-  // var solutionCount = 0; //fixme
+  if (n === 0) {
+    return [];
+  } else if (n === 2 || n === 3) {
+    let emptys = new Board({n:n});
+    solution = emptys.rows();
+  }
 
-  // let queensRecursion = function(row) {
-  //   if(row === n && !board.hasAnyQueensConflicts()) {
-  //     solutions.push(board.rows());
-  //   }
-  //   if(!!board.get(row)) {
-  //     for (let j = 0; j < n; j++) {
-  //       board.togglePiece(row, j);
-  //      if(!board.hasAnyQueensConflicts()) {
-  //        queensRecursion(row + 1);
-  //      }
-  //       board.togglePiece(row, j);
+  let board = new Board({n:n});
 
-  //     }
-  //   }
-  // }
+  let queensRecursion = function(row) {
+    if(row === n && !board.hasAnyQueensConflicts()) {
+      let answer = JSON.stringify(board.rows());
+      solution = JSON.parse(answer);
+    }
+    if(!!board.get(row)) {
+      for (let j = 0; j < n; j++) {
+        board.togglePiece(row, j);
+       if(!board.hasAnyQueensConflicts()) {
+         queensRecursion(row + 1);
+       }
+        board.togglePiece(row, j);
 
-  // queensRecursion(0);
+      }
+    }
+  }
 
-  // var solution = solutions[0] || solutions; //fixme
-  // console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
-  // return solution;
+  queensRecursion(0);
+
+  console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
+  return solution;
 };
 
 
